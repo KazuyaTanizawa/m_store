@@ -4,6 +4,7 @@ Store::Application.routes.draw do
     post "m_create" ,:on => :collection
     get "m_edit",:on => :collection
     post "m_update" ,:on => :collection
+    get "m_destroy", :on => :collection
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

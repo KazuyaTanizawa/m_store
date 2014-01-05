@@ -70,9 +70,9 @@ class BooksController < ApplicationController
          raise ActiveRecord::Rollback
       end
     end
-    params[:book].each{|book| book.permit(:title, :price)}
-    @books = Book.new(params[:book])
-    raise
+    #params[:book].each{|book| book.permit(:title, :price)}
+    #@books = Book.new(params[:book])
+    #raise
 
     respond_to do |format|
       if @isError == false
@@ -103,13 +103,14 @@ class BooksController < ApplicationController
     end
   end
   def m_update
+    raise
     @books = Book.update(params[:book].keys,params[:book].values)
 
     @isError = false
     @books.each{|book| @isError = true if book.errors.any?}
     @nextaction = :m_update
     respond_to do |format|
-      if isError == false
+      if @isError == false
         format.html { redirect_to :action => :index, notice: 'Book was successfully updated.' }
         format.json { head :no_content }
       else
@@ -126,6 +127,12 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to books_url }
       format.json { head :no_content }
+    end
+  end
+  def m_destroy
+    Book.find(params[:id]).destroy
+    respond_to do |format|
+      format.html { redirect_to :action => :m_edit}
     end
   end
 

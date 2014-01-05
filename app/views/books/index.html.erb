@@ -8,6 +8,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -16,8 +17,7 @@
       <tr>
         <td><%= book.title %></td>
         <td><%= book.price %></td>
-        <td><%= link_to 'Show', book %></td>
-        <td><%= link_to 'Edit', edit_book_path(book) %></td>
+        <td><%= link_to '複数編集',:action => :m_edit %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -26,4 +26,5 @@
 
 <br>
 
-<%= link_to 'New Book', new_book_path %>
+
+<%= link_to '複数作成', :action => :m_new %>

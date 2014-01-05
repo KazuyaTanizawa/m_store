@@ -1,3 +1,41 @@
+<script>
+    count = 0
+    $(function(){
+    $('#add_data').click(function(){
+        $(this).css("value","red");
+
+
+
+    line =  '<tr>' +
+            '<td> ' +
+           '<div class="field">'  +
+           '<label for="book__title">Title</label><br>' +
+           '<input id="book__title" name="book[new'+count +'][title]" type="text" />' +
+           '</div> ' +
+            '</td>' +
+            '<td>' +
+            '<div class="field">'  +
+            '<label for="book__price">Price</label><br> ' +
+            '<input id="book__price" name="book[new'+count+'][price]" type="number" />' +
+            '</div>'+
+            '</td>' +
+            '</tr>';
+    $('#add_point').before(line);
+    count = count + 1
+    });
+
+    $("p").click(function () {
+            $(this).slideUp();
+    });
+    });
+
+
+</script>
+
+
+
+
+
 <%= form_tag :action => @nextaction do  %>
     <% if @isError == true then %>
         <div id="error_explanation">
@@ -15,21 +53,40 @@
         <% } %>
         </div>
     <% end %>
+    <table>
     <% @books.each_with_index{|book,i| %>
-
-        <%# raise %>
+        <tr>
         <%= fields_for("book[]",book) {|f| %>
+            <td>
             <div class="field">
               <%= f.label :title %><br>
               <%= f.text_field :title %>
             </div>
+            </td>
+            <td>
             <div class="field">
               <%= f.label :price %><br>
               <%= f.number_field :price %>
             </div>
+            </td>
+            <td>
+              <%= link_to '削除',{:action => :m_destroy,:id => book.id},:remove => true %>
+            </td>
         <% } %>
-
+        </tr>
 
     <% } %>
+    <tr id="add_point">
+      <td>
+    <div ></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
     <%= submit_tag "送信" %>
+      </td>
+    </tr>
+    </table>
+    <button type="button" name="button" value="aaa" id='add_data'>追加</button>
+
 <% end %>
