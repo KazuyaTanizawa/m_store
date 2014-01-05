@@ -1,0 +1,35 @@
+<%= form_tag :action => @nextaction do  %>
+    <% if @isError == true then %>
+        <div id="error_explanation">
+        <% @books.each_with_index{|book,i| %>
+            <%# if book.errors.any? %>
+
+
+                  <ul>
+                    <% book.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+
+            <%# end %>
+        <% } %>
+        </div>
+    <% end %>
+    <% @books.each_with_index{|book,i| %>
+
+        <%# raise %>
+        <%= fields_for("book[]",book) {|f| %>
+            <div class="field">
+              <%= f.label :title %><br>
+              <%= f.text_field :title %>
+            </div>
+            <div class="field">
+              <%= f.label :price %><br>
+              <%= f.number_field :price %>
+            </div>
+        <% } %>
+
+
+    <% } %>
+    <%= submit_tag "送信" %>
+<% end %>
